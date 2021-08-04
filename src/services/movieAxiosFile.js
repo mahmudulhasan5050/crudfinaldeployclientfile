@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://mycrudfinalapp.herokuapp.com';
+const baseUrl = 'https://mycrudfinalapp.herokuapp.com';
 
 const getAll = () => {
     return axios.get(`${baseUrl}/api/get`);
