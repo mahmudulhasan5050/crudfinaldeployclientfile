@@ -8,8 +8,6 @@ import Display from './component/Display';
 
 function App() {
   const [movieLists, setMovieLists] = useState([]);
-  const [updateRefresh, setUpdateRefresh] = useState(false);
-  const [deleteRefresh, setDeleteRefresh] = useState(false);
 
   useEffect(() => {
     movieAxiosFile.getAll().then(response => {
@@ -17,21 +15,12 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    movieAxiosFile.getAll().then(response => {
-      setMovieLists(response.data);
-    });
-  }, [updateRefresh, deleteRefresh]);
 
   return (
     <div className="App">
       <div><h1>Movie Rating App</h1></div>
       <Form movieLists={movieLists} setMovieLists={setMovieLists} />
-      <Display movieLists={movieLists}
-        updateRefresh={updateRefresh}
-        setUpdateRefresh={setUpdateRefresh}
-        deleteRefresh={deleteRefresh}
-        setDeleteRefresh={setDeleteRefresh} />
+      <Display movieLists={movieLists} />
     </div>
   );
 }
