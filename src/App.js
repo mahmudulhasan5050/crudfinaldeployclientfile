@@ -7,14 +7,8 @@ import Form from './component/Form';
 import Display from './component/Display';
 
 function App() {
-  const [movieName, setMovieName] = useState('');
-  const [review, setReview] = useState('');
   const [movieLists, setMovieLists] = useState([]);
-
-
- // console.log("movie name from app.js: ", movieName);
- // console.log("movie review from app.js: ", review);
- // console.log("movie list from app.js: ", movieLists);
+  const [updateRefresh, setUpdateRefresh] = useState(false);
 
   useEffect(() => {
     movieAxiosFile.getAll().then(response => {
@@ -22,17 +16,19 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    movieAxiosFile.getAll().then(response => {
+      setMovieLists(response.data);
+    });
+  }, [updateRefresh]);
+
   return (
     <div className="App">
       <div><h1>Movie Rating App</h1></div>
-      <Form
-        movieName={movieName}
-        setMovieName={setMovieName}
-        review={review}
-        setReview={setReview}
-        movieLists={movieLists}
-        setMovieLists={setMovieLists} />
-      <Display movieLists={movieLists}/>
+      <Form movieLists={movieLists} setMovieLists={setMovieLists} />
+      <Display movieLists={movieLists}
+            updateRefresh={updateRefresh}
+            setUpdateRefresh={setUpdateRefresh}/>
     </div>
   );
 }

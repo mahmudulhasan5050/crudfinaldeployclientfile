@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import movieAxiosFile from '../services/movieAxiosFile';
 
-const UpdateDeleteReview = ({ movieList }) => {
+const UpdateDeleteReview = ({ movieList, updateRefresh, setUpdateRefresh }) => {
     const [updateReviewText, setUpdateReviewText] = useState('');
-
 
     const updateHandler = (e) => {
         setUpdateReviewText(e.target.value);
@@ -17,10 +16,12 @@ const UpdateDeleteReview = ({ movieList }) => {
             movieAxiosFile.updateReview(objReview);
         }
         setUpdateReviewText('');
+        setUpdateRefresh(!updateRefresh);
     }
 
     const deleteHandle = (nameToDelete) => {
         movieAxiosFile.deleteMovie(nameToDelete);
+        setUpdateRefresh(!updateRefresh);
     }
 
     return (
